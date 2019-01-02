@@ -33,7 +33,7 @@ app.set('view engine', 'pug');
 app.use('/api/v1', api);
 // Catch all other requests
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 // Error handler
 app.use((err, req, res, next) => {
