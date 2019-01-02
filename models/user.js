@@ -2,20 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
-
-let resolutionSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    type: {
-      type: String,
-      enum: ['progression', 'accomplishement'],
-      required: true
-    }
-  },
-  {
-    timestamps: true
-  }
-);
+const Resolution = require('./resolution');
 
 let userSchema = new Schema(
   {
@@ -29,7 +16,7 @@ let userSchema = new Schema(
       select: false,
       minlength: 6
     },
-    resolutions: [resolutionSchema]
+    resolutions: [Resolution]
   },
   {
     timestamps: true

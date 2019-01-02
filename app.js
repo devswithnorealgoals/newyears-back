@@ -35,6 +35,11 @@ app.use('/api/v1', api);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+// Error handler
+app.use((err, req, res, next) => {
+  console.dir(err, { depth: null });
+  res.status(err.statusCode || 500).json({ message: err.message, error: err });
+});
 // Set app port
 const port = process.env.PORT || 3000;
 app.set('port', port);
