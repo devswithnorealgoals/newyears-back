@@ -33,6 +33,16 @@ router.get('/:user_id', (req, res, next) => {
     });
 });
 
+router.delete('/:user_id', (req, res, next) => {
+  User.remove({ _id: req.params.user_id })
+    .then(_ => {
+      return res.json({ message: 'User deleted' });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 router.put('/:user_id', (req, res, next) => {
   User.findOneAndUpdate({ _id: req.params.user_id }, req.body, { new: true })
     .then(user => {

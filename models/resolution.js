@@ -5,32 +5,52 @@ let resolutionSchema = new Schema(
   {
     name: { type: String, required: true },
     year: { type: Number, required: true },
-    status: {
-      type: String,
-      require: true,
-      enum: ['planned', 'in progress', 'done']
+    done: {
+      type: Boolean,
+      required: true,
+      default: false,
+      set: function(done) {
+        done = done === 'true' || done === true;
+        // automatically set finish date
+        this.finish_date = done ? new Date() : null;
+        return done;
+      }
     },
+    finishDate: Date,
     tags: [
       {
         type: String,
-        enum: ['pro', 'love', 'fun', 'sport']
+        enum: [
+          'professional',
+          'love',
+          'personnal',
+          'hobby',
+          'sport',
+          'academic'
+        ]
       }
     ],
     type: {
       type: String,
-      enum: ['tracking', 'accomplishement', 'goal'],
+      enum: ['countable', 'goal'],
       required: true
-    }
+    },
+    // countable
+    count: Number,
+    target: { type: Number, min: 1 }
   },
   {
     timestamps: true
   }
 );
 
-// todo: automatically update status based on progression
-// resolutionSchema.pre('validate', function(next) {
-//   // if (this.name !== 'Woody') this.name = 'Woody';
-//   next();
-// });
+resolutionSchema.pre('validate', function(next) {
+  // automatically update done
+  if (this.type === 'countable') {
+    // done if target reached for countable
+    this.done = this.count === this.target;
+  }
+  next();
+});
 
 module.exports = resolutionSchema;
