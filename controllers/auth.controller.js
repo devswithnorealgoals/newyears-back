@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-router.post('/sign_in', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   User.findOne({
     email: req.body.email
   })
@@ -36,4 +36,13 @@ router.post('/sign_in', function(req, res, next) {
     });
 });
 
+router.post('/signup', (req, res, next) => {
+  User.create(req.body)
+    .then(user => {
+      return res.json({ message: 'User created', data: user });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 module.exports = router;

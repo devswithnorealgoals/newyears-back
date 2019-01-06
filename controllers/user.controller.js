@@ -13,15 +13,7 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
-  User.create(req.body)
-    .then(user => {
-      return res.json({ message: 'User created', data: user });
-    })
-    .catch(err => {
-      next(err);
-    });
-});
+// user creation happens in auth.controller
 
 router.get('/:user_id', (req, res, next) => {
   User.findOne({ _id: req.params.user_id })

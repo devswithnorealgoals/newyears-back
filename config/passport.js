@@ -3,7 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy,
 const passport = require('passport');
 const User = require('../models/user');
 
-const publicUrls = ['/', '/api/v1/auth/sign_in'];
+const publicUrls = ['/', '/api/v1/auth/login', '/api/v1/auth/signup'];
 
 function initialize(passport) {
   var opts = {};
