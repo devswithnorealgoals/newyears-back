@@ -29,8 +29,6 @@ userSchema.methods.generateJwt = function() {
 
   let payload = {
     _id: this._id,
-    role: this.role,
-    profile_picture: this.profile_picture,
     exp: parseInt(expiry.getTime() / 1000)
   };
   delete payload.password; // Remove password hash
