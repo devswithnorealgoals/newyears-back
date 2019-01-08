@@ -39,7 +39,7 @@ router.post('/login', function(req, res, next) {
 router.post('/signup', (req, res, next) => {
   User.create(req.body)
     .then(user => {
-      return res.json({ message: 'User created', data: user });
+      return res.status(201).json({ message: 'User created', data: user });
     })
     .catch(err => {
       next(err);
